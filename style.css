@@ -1,0 +1,56 @@
+:root { --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21; --btn: #42b72a; --border: #dddfe2; --accent: #1877f2; }
+        .dark { --bg: #18191a; --card: #242526; --text: #e4e6eb; --btn: #2d88ff; --border: #3e4042; }
+        
+        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
+        .container { max-width: 800px; margin: auto; padding: 15px; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        
+        .user-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+        /* Home Grid */
+        .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin: 20px 0; }
+        .home-btn { padding: 15px 5px; border: none; border-radius: 10px; background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: 0.2s; font-size: 13px; }
+        .home-btn:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+
+        /* Full Screen Section Style */
+        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        
+        .section { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: var(--bg); 
+            z-index: 1000; 
+            overflow-y: auto; 
+            padding: 20px; 
+            box-sizing: border-box;
+            animation: fadeIn 0.3s; 
+        }
+
+        .back-btn { background: #606770; color: white; padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; margin-bottom: 15px; font-weight: bold; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        button { padding: 12px 18px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: #fff; background: var(--btn); margin: 4px 2px; }
+        .red { background: #fa3e3e; } .blue { background: #1877f2; } .orange { background: #f5c33b; color: #000; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { border: 1px solid var(--border); padding: 10px; text-align: center; }
+        th { background: rgba(0,0,0,0.05); }
+        .hidden { display: none; }
+        .result-box { background: rgba(24, 119, 242, 0.1); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center; font-weight: bold; border: 1px dashed var(--accent); }
+
+        /* Calculator UI */
+        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 320px; margin: 15px auto; }
+        .calc-screen { grid-column: span 4; background: #f0f2f5; color: #000; padding: 20px; text-align: right; font-size: 24px; border-radius: 8px; margin-bottom: 10px; min-height: 40px; border: 1px solid #ddd; }
+        .c-btn { background: var(--card); color: var(--text); padding: 18px; border-radius: 8px; border: 1px solid var(--border); font-size: 18px; cursor: pointer; }
+        
+        .sci-grid { grid-template-columns: repeat(4, 1fr) !important; max-width: 100% !important; }
+        .sci-calc-container { background: var(--bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border); }
+        .sci-grid .c-btn { padding: 12px 5px !important; font-size: 14px !important; }
+        
+        .editor-toolbar { position: sticky; top: 0; z-index: 1100; padding: 10px; margin-bottom: 0 !important; border-radius: 0 0 12px 12px; }
+#editorBody { word-wrap: break-word; overflow-wrap: break-word; font-family: 'Arial', sans-serif; color: black; transition: transform 0.2s; }
+#pageContainer { min-height: 400px; }

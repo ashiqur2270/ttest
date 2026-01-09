@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tools</title>
+ <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+   <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1877f2">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="user-info">
+        <div>
+            <h2>All In One</h2>
+            <p>✉️ ashiqur2270@gmail.com</p>
+        </div>
+       <input type="text" placeholder="🔍 Search..." oninput="globalSearch(this.value)">
+    </div>
+
+    <div class="home-grid" id="homeUI">
+        <button class="home-btn" onclick="show('notepadSec')">📝 Notepad</button>
+        <button class="home-btn" onclick="show('backupSec')">💾 Backup</button>
+        
+        <button class="home-btn" onclick="show('ecSec')">💰 Earning & Cost</button>
+        <button class="home-btn" onclick="show('calcSec')">🔢 Calculator</button>
+
+<button class="home-btn" onclick="show('sciCalcSec')">🔬 Scientific-Calc</button>
+
+        <button class="home-btn" onclick="show('ageSec')">🎂 Age Calc</button>
+       <button class="home-btn" onclick="show('calendarSec')">📅 বাংলা ক্যালেন্ডার</button>
+
+        <button class="home-btn" onclick="show('tallySec')">📊 Tally</button>
+       
+
+        <button class="home-btn" onclick="show('convSec')">📏 Converter</button>
+        <button class="home-btn" onclick="show('loanSec')">🏦 Loan %</button>
+        <button class="home-btn" onclick="show('dollarSec')">💵 $ to Taka</button>
+        <button class="home-btn" onclick="show('mbSec')">🚀 M/B/T Calc</button>
+        <button class="home-btn" onclick="show('pwdSec')">🔐 Password Gen</button>
+<button class="home-btn" onclick="show('stopwatchSec')">⏱ Stopwatch</button>
+<button class="home-btn" onclick="show('timerSec')">⏲️ Timer</button>
+<button class="home-btn" onclick="show('unitConvSec')">📏 Unit Converter</button>
+<button class="home-btn" onclick="show('landSec')">📐 Measure Land</button>
+
+    </div>
+
+    <div id="notepadSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Notepad</h3>
+        <input type="text" id="noteTitle" placeholder="শিরোনাম">
+        <textarea id="noteText" rows="4" placeholder="নোট লিখুন..."></textarea>
+        <div style="margin: 10px 0;">Font Size: <input type="number" id="noteFS" value="16" style="width:70px; display:inline;"></div>
+        <button onclick="saveNote()">Save</button>
+        <button class="blue" onclick="exportData('noteList', 'pdf', 'noteFS')">PDF</button>
+        <button class="orange" onclick="exportData('noteList', 'img', 'noteFS')">Image</button>
+        <div id="noteList"></div>
+    </div>
+    
+    
+<div id="backupSec" class="card section">
+    <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>Backup & Restore</h3>
+
+    <button class="blue" onclick="exportBackup()" style="width:100%">⬇ Export Backup</button>
+    <br><br>
+    <input type="file" id="backupFile">
+    <button class="orange" onclick="importBackup()" style="width:100%">⬆ Restore Backup</button>
+
+    <p style="font-size:12px;color:gray">
+        * সব Note, Cost, Age, Calculator ডাটা সেভ হবে
+    </p>
+</div>
+
+
+    <div id="ecSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Earning & Cost</h3>
+        <input type="datetime-local" id="ecDate">
+        <input type="text" id="ecType" placeholder="আয়/ব্যয়ের ধরণ">
+        <input type="number" id="ecIn" placeholder="আয় পরিমাণ">
+        <input type="number" id="ecOut" placeholder="ব্যয় পরিমাণ">
+        <button onclick="addEC()" style="width:100%">Add (Auto Reset)</button>
+        <hr>
+        Font Size: <input type="number" id="ecFS" value="14" style="width:70px; display:inline;">
+        <button class="blue" onclick="toggle('ecTableWrap')">Saved List</button>
+        <button class="orange" onclick="exportData('ecPrint', 'pdf', 'ecFS')">PDF</button>
+        <div id="ecTableWrap" class="hidden">
+            <div id="ecPrint">
+                <h3 style="text-align:center">আয় ব্যয় রিপোর্ট</h3>
+                <table>
+                    <thead><tr><th>নং</th><th>তারিখ</th><th>ধরণ</th><th>আয়</th><th>ব্যয়</th><th>অবশিষ্ট</th><th>X</th></tr></thead>
+                    <tbody id="ecBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="calcSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Full Calculator</h3>
+        <div class="calc-grid">
+            <div id="scr" class="calc-screen">0</div>
+            <button class="c-btn" onclick="cClr()">C</button>
+            <button class="c-btn" onclick="cPress('/')">/</button>
+            <button class="c-btn" onclick="cPress('*')">*</button>
+            <button class="c-btn" onclick="cBack()">⌫</button>
+            <button class="c-btn" onclick="cPress('7')">7</button>
+            <button class="c-btn" onclick="cPress('8')">8</button>
+            <button class="c-btn" onclick="cPress('9')">9</button>
+            <button class="c-btn blue" onclick="cPress('-')">-</button>
+            <button class="c-btn" onclick="cPress('4')">4</button>
+            <button class="c-btn" onclick="cPress('5')">5</button>
+            <button class="c-btn" onclick="cPress('6')">6</button>
+            <button class="c-btn blue" onclick="cPress('+')">+</button>
+            <button class="c-btn" onclick="cPress('1')">1</button>
+            <button class="c-btn" onclick="cPress('2')">2</button>
+            <button class="c-btn" onclick="cPress('3')">3</button>
+            <button class="c-btn blue" onclick="cRes()">=</button>
+            <button class="c-btn" style="grid-column: span 2;" onclick="cPress('0')">0</button>
+            <button class="c-btn" onclick="cPress('.')">.</button>
+        </div>
+        <input type="text" id="cType" placeholder="হিসাবের ধরণ (যেমন: বাজার)">
+        <button onclick="addCalcFromScr()" class="blue" style="width:100%">Add This Result</button>
+        
+        <div style="margin: 15px 0;">
+            Font: <input type="number" id="calcFS" value="16" style="width:60px;">
+            <button class="blue" onclick="exportData('cPrintArea', 'pdf', 'calcFS')">PDF</button>
+        </div>
+
+        
+        <div id="cPrintArea" style="background: white; padding: 10px; border-radius: 5px;">
+            <h3 style="text-align:center; color: #000;">ক্যালকুলেটর রিপোর্ট</h3>
+            <table>
+                <thead><tr style="color: #000;"><th>ধরণ</th><th>টাকা</th><th>X</th></tr></thead>
+                <tbody id="cBody" style="color: #000;"></tbody>
+            </table>
+            <div class="result-box" style="color: #000;">মোট হিসেব: <span id="cTotal">0</span> ৳</div>
+        </div>
+    </div>
+
+<div id="sciCalcSec" class="card section">
+  <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>Scientific Calculator</h3>
+    <div class="sci-calc-container">
+        <div id="sci-screen" class="calc-screen">0</div>
+        <div class="calc-grid sci-grid">
+            <button class="c-btn func-btn" onclick="squareSci()">x²</button>
+<button class="c-btn func-btn" onclick="reciprocalSci()">1/x</button>
+<button class="c-btn func-btn" onclick="absSci()">|x|</button>
+            
+            <button class="c-btn orange" onclick="sciPress('sin(')">sin</button>
+            <button class="c-btn orange" onclick="sciPress('cos(')">cos</button>
+            <button class="c-btn orange" onclick="sciPress('tan(')">tan</button>
+            <button class="c-btn red" onclick="cClrSci()">AC</button>
+            
+            <button class="c-btn" onclick="sciPress('Math.PI')">π</button>
+            <button class="c-btn" onclick="sciPress('Math.sqrt(')">√</button>
+            <button class="c-btn" onclick="sciPress('**')">^</button>
+            <button class="c-btn" onclick="cBackSci()">⌫</button>
+            
+            <button class="c-btn" onclick="sciPress('Math.log10(')">log</button>
+            <button class="c-btn" onclick="sciPress('Math.log(')">ln</button>
+            <button class="c-btn" onclick="sciPress('(')">(</button>
+            <button class="c-btn" onclick="sciPress(')')">)</button>
+            
+            <button class="c-btn" onclick="sciPress('7')">7</button>
+            <button class="c-btn" onclick="sciPress('8')">8</button>
+            <button class="c-btn" onclick="sciPress('9')">9</button>
+            <button class="c-btn blue" onclick="sciPress('/')">÷</button>
+            
+            <button class="c-btn" onclick="sciPress('4')">4</button>
+            <button class="c-btn" onclick="sciPress('5')">5</button>
+            <button class="c-btn" onclick="sciPress('6')">6</button>
+            <button class="c-btn blue" onclick="sciPress('*')">×</button>
+            
+            <button class="c-btn" onclick="sciPress('1')">1</button>
+            <button class="c-btn" onclick="sciPress('2')">2</button>
+            <button class="c-btn" onclick="sciPress('3')">3</button>
+            <button class="c-btn blue" onclick="sciPress('-')">-</button>
+            
+            <button class="c-btn" onclick="sciPress('0')">0</button>
+            <button class="c-btn" onclick="sciPress('.')">.</button>
+            <button class="c-btn blue" onclick="cResSci()">=</button>
+            <button class="c-btn blue" onclick="sciPress('+')">+</button>
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="ageSec" class="card section">
+       <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Age Calculator (Live)</h3>
+     <p style="font-size: 12px; color: gray;">জন্মতারিখ লিখুন (দিন-মাস-বছর):</p>
+        <input type="text" id="dob" placeholder="DD-MM-YYYY (যেমন: 15-08-1998)">
+        <button class="blue" onclick="startLiveAge()" style="width:100%">Quick Calculate</button>
+        
+        <div id="ageResult" class="result-box hidden">
+            বয়স দেখতে জন্মতারিখ দিন...
+        </div>
+
+        <input type="text" id="ageName" placeholder="ব্যক্তির নাম">
+        <button onclick="saveAge()" style="width:100%">Save Birthday</button>
+        <button class="orange" onclick="toggle('ageListWrap')" style="width:100%">Saved Birthdays</button>
+        
+        <div id="ageListWrap" class="hidden">
+            <div id="savedAgesContainer"></div>
+        </div>
+    </div>
+
+<div id="calendarSec" class="card section">
+   <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>📅 নির্ভুল বাংলা ক্যালেন্ডার</h3>
+    
+    <p style="font-size: 13px; color: gray;">তারিখ লিখুন (দিন-মাস-বছর):</p>
+    <input type="text" id="calInput" 
+           placeholder="DD-MM-YYYY" 
+           oninput="formatAndStyleDate(this)" 
+           style="font-size: 18px; font-weight: bold; width: 80%; padding: 12px; margin-bottom: 20px; border: 2px solid var(--accent); border-radius: 8px; text-align: center;">
+
+    <div class="result-box" style="background: rgba(66, 183, 42, 0.1); border: 2px solid #42b72a; padding: 20px; border-radius: 12px;">
+        <small style="color: #42b72a; font-weight: bold;">বাংলা তারিখ:</small>
+        <div id="bnDateRes" style="font-size: 24px; font-weight: bold; margin-top: 10px; color: var(--text);">তারিখ লিখুন</div>
+    </div>
+</div>
+
+
+
+    <div id="tallySec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>টালি কাউন্টার</h3>
+        <h1 id="tCnt" style="text-align:center; font-size:60px; margin:20px 0;">0</h1>
+        <div style="display:flex; gap:10px;">
+            <button style="flex:1" onclick="tally(1)">+ যোগ</button>
+            <button style="flex:1" class="red" onclick="tally(-1)">- বিয়োগ</button>
+            <button style="flex:1" class="orange" onclick="tally(0)">রিসেট</button>
+        </div>
+    </div>
+
+
+
+    <div id="convSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Universal Converter</h3>
+        <input type="number" id="unitVal" placeholder="মান লিখুন">
+        <select id="unitFrom">
+            <option value="ft">Feet (ft)</option>
+            <option value="cm">Centimeter (cm)</option>
+            <option value="m">Meter (m)</option>
+            <option value="in">Inch (in)</option>
+        </select>
+        <select id="unitTo">
+            <option value="cm">Centimeter (cm)</option>
+            <option value="ft">Feet (ft)</option>
+            <option value="m">Meter (m)</option>
+            <option value="in">Inch (in)</option>
+        </select>
+        <button class="blue" onclick="unitConvert()" style="width:100%">Convert</button>
+        <div id="unitRes" class="result-box hidden"></div>
+    </div>
+
+</div>
+
+    <div id="loanSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Loan % Checker</h3>
+        <input type="number" id="lAmt" placeholder="টাকার পরিমাণ">
+        <input type="number" id="lRate" placeholder="সুদের হার (%)">
+        <div style="display:flex; gap:5px;">
+            <button style="flex:1" onclick="loanCalc('simple')">সরল সুদ</button>
+            <button style="flex:1" class="blue" onclick="loanCalc('comp')">চক্রবৃদ্ধি সুদ</button>
+        </div>
+        <button class="red" onclick="loanReset()" style="width:100%">Reset</button>
+        <div id="loanRes" class="result-box hidden"></div>
+    </div>
+
+    <div id="dollarSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>Dollar to Taka</p>
+        <h4>ডলার রেইট বক্সে যেকোন টাকার রেইট দিয়ে পরিমাপ সম্বব</p>
+        <input type="number" id="dRate" placeholder="Today Dollar Rate">
+        <input type="number" id="dAmt" placeholder="ডলার এর পরিমাণ" ($)">
+        <button class="blue" onclick="dollarCalc()" style="width:100%">টাকায় কনভার্ট করুন</button>
+        <div id="dollarRes" class="result-box hidden">
+        </div>
+    </div>
+
+    <div id="mbSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+        <h3>K/Million/Billion Converter</h3>
+        <input type="number" id="mbVal" placeholder="সংখ্যা লিখুন (e.g. 1)">
+        <select id="mbType">
+            <option value="k">K (হাজার)</option>
+            <option value="m">Million (১০ লক্ষ)</option>
+            <option value="b">Billion ( ১০০ কোটি)</option>
+            <option value="t">Trillion</option>
+        </select>
+        <input type="number" id="mbDRate" placeholder="ডলার রেইট (টাকায় কনভার্ট করতে)">
+        <button class="blue" onclick="mbConverter()" style="width:100%">Convert</button>
+        <button class="red" onclick="mbReset()" style="width:100%">Reset</button>
+        <div id="mbRes" class="result-box hidden"></div>
+    </div>
+</div>
+
+
+<div id="pwdSec" class="card section">
+        <button class="back-btn" onclick="goHome()">⬅ Back</button>
+        <h3>🔐 Strong Password Generator</h3>
+        <div id="passOutput" class="result-box" style="font-size: 22px; letter-spacing: 2px; word-break: break-all; min-height: 40px;">********</div>
+        <div style="margin: 15px 0;">
+            পাসওয়ার্ড দৈর্ঘ্য: <input type="number" id="pwdLength" value="10" min="8" max="30" style="width: 70px; display: inline;">
+        </div>
+        <div style="display: flex; gap: 5px;">
+            <button class="blue" onclick="generatePassword()" style="flex: 2;">Generate Password</button>
+            <button class="orange" onclick="copyPassword()" style="flex: 1;">Copy</button>
+        </div>
+    </div>
+<div id="stopwatchSec" class="card section">
+<button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>⏱ Stopwatch</h3>
+    <h1 id="swDisplay" style="text-align:center; font-family: monospace; font-size: 50px; margin: 20px 0;">00:00:00.0</h1>
+    <div style="display:flex; gap:10px;">
+        <button id="swStartBtn" style="flex:1" onclick="startStopwatch()">Start</button>
+        <button style="flex:1" class="blue" onclick="lapStopwatch()">Lap (Loop)</button>
+        <button style="flex:1" class="red" onclick="resetStopwatch()">Reset</button>
+    </div>
+    <div id="lapList" style="margin-top: 15px; max-height: 200px; overflow-y: auto; border-top: 1px solid var(--border);">
+        </div>
+</div>
+
+<div id="timerSec" class="card section">
+   <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>⏲️ Countdown Timer</h3>
+    <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+        <input type="number" id="tMin" placeholder="Min" min="0">
+        <input type="number" id="tSec" placeholder="Sec" min="0" max="59">
+    </div>
+    <h1 id="tDisplay" style="text-align:center; font-family: monospace; font-size: 50px; margin: 20px 0;">00:00</h1>
+    <div style="display:flex; gap:10px;">
+        <button id="timerStartBtn" style="flex:1" onclick="startTimer()">Start Timer</button>
+        <button style="flex:1" class="red" onclick="resetTimer()">Reset</button>
+    </div>
+</div>
+<div id="unitConvSec" class="card section">
+<button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>📏 Smart Unit Converter</h3>
+    
+    <label style="font-size: 12px; color: gray;">প্যারামিটার সিলেক্ট করুন:</label>
+    <select id="unitType" onchange="updateUnits()" style="margin-bottom: 20px;">
+        <optgroup label="দৈর্ঘ্য ও দূরত্ব (Length)">
+            <option value="m-ft">Meter ⇄ Feet (ft)</option>
+            <option value="ft-in">Feet (ft) ⇄ Inch (in)</option>
+            <option value="in-cm">Inch (in) ⇄ Centimeter (cm)</option>
+            <option value="km-m">Kilometer (km) ⇄ Meter (m)</option>
+        </optgroup>
+        <optgroup label="বিদ্যুৎ ও ডেটা (Power & Data)">
+            <option value="kwh-w">kWh ⇄ Watt (প্রতি ঘণ্টা)</option>
+            <option value="mbps-mb">Mbps ⇄ MB (প্রতি সেকেন্ড)</option>
+        </optgroup>
+        <optgroup label="গতি ও তাপমাত্রা (Speed & Temp)">
+            <option value="kmh-ms">Km/h ⇄ Meter/Sec</option>
+            <option value="c-f">Celsius (°C) ⇄ Fahrenheit (°F)</option>
+        </optgroup>
+        <optgroup label="ওজন (Weight)">
+            <option value="kg-ton">KG ⇄ Ton</option>
+            <option value="g-kg">Gram (g) ⇄ KG</option>
+            <option value="kg-lb">KG ⇄ Pound (lb)</option>
+        </optgroup>
+    </select>
+
+    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 10px;">
+        <div style="flex: 1;">
+            <small id="unitLabel1" style="font-weight: bold; color: var(--accent);">Meter</small>
+            <input type="number" id="val1" placeholder="0" oninput="convert(1)" style="font-size: 18px; font-weight: bold;">
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 20px; color: #888;">⇄</div>
+
+        <div style="flex: 1;">
+            <small id="unitLabel2" style="font-weight: bold; color: var(--accent);">Feet</small>
+            <input type="number" id="val2" placeholder="0" oninput="convert(2)" style="font-size: 18px; font-weight: bold;">
+        </div>
+    </div>
+    
+    <div style="margin-top: 15px; display: flex; gap: 10px;">
+        <button class="red" onclick="resetUnits()" style="flex: 1;">Clear</button>
+        <button class="blue" onclick="show('home')" style="flex: 1;">Back</button>
+    </div>
+</div>
+
+<div id="landSec" class="card section">
+   <button class="back-btn" onclick="goHome()">⬅ Back</button>
+
+    <h3>📐 জমি পরিমাপ (Advanced Land Calc)</h3>
+    
+    <div class="land-inputs">
+        <p style="font-size: 12px; color: gray; margin-bottom: 5px;">বাহুর দৈর্ঘ্য (ফুট):</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="number" id="L1" placeholder="দৈর্ঘ্য ১ (A-B)">
+            <input type="number" id="L2" placeholder="দৈর্ঘ্য ২ (C-D)">
+            <input type="number" id="W1" placeholder="প্রস্থ ১ (A-C)">
+            <input type="number" id="W2" placeholder="প্রস্থ ২ (B-D)">
+        </div>
+        
+        <p style="font-size: 12px; color: #1877f2; margin: 10px 0 5px 0;">কোণাকুণি কর্ণ (নিখুঁত মাপের জন্য):</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="number" id="D_BC" placeholder="কর্ণ ১ (B-C)">
+            <input type="number" id="D_AD" placeholder="কর্ণ ২ (A-D)">
+        </div>
+    </div>
+
+    <button class="blue" onclick="calculateLandAdvanced()" style="width: 100%; margin-top: 15px;">হিসাব করুন</button>
+
+    <div id="landResult" class="result-box hidden"></div>
+
+    <div style="margin-top: 15px;">
+        <input type="text" id="landOwner" placeholder="জমির নাম বা মালিকের নাম">
+        <div style="display: flex; gap: 5px;">
+            <button onclick="saveLandData()" style="flex: 1;">Save Information</button>
+            <button class="orange" onclick="toggle('savedLandWrap')" style="flex: 1;">Show Saved</button>
+        </div>
+    </div>
+    <div id="savedLandWrap" class="hidden" style="margin-top: 15px;">
+        <div id="landListContainer"></div>
+    </div>
+</div>
+        
+        </div>
+        
+       <script src="script.js"></script>
+        </body>
+        </html>
+        

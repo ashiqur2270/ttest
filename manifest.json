@@ -1,0 +1,17 @@
+{
+  "name": "All In One",
+  "short_name": "All In One",
+  "description": "একের ভিতরে সব",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#1877f2",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/ashiqur2270/all-in-one/refs/heads/main/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
